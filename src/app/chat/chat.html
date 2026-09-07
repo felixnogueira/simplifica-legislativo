@@ -1,0 +1,115 @@
+<div class="chat">
+  <div #historico class="historico">
+    @if (mensagens().length === 0 && !carregando()) {
+      <div class="boas-vindas">
+        <div class="boas-vindas-icone"><nz-icon nzType="read" nzTheme="fill"></nz-icon></div>
+        <h2>Simplifica Legislativo</h2>
+        <p>Pergunte sobre as proposições da Câmara dos Deputados em linguagem natural.
+          O assistente busca os dados oficiais na hora e explica em linguagem simples, com links para os documentos.</p>
+        <div class="sugestoes">
+          @for (s of sugestoes; track s) {
+            <button type="button" class="chip" (click)="pergunta = s; enviar()">{{ s }}</button>
+          }
+        </div>
+      </div>
+    }
+
+    @for (msg of mensagens(); track $index; let i = $index) {
+      <div class="msg" [class.usuario]="msg.papel === 'usuario'">
+<div class="bolha" [class.erro]="msg.erro">
+          @if (msg.papel === 'usuario') {
+            <span class="visually-hidden">Você:</span>
+            <p class="texto-usuario">{{ msg.texto }}</p>
+          } @else {
+            <div class="conteudo" [innerHTML]="render(msg.texto)"></div>
+          }
+
+          @if (msg.papel === 'assistente' && msg.aviso) {
+            <p class="aviso-ano" role="note">
+              <nz-icon nzType="info-circle" nzTheme="outline"></nz-icon>
+              {{ msg.aviso }}
+            </p>
+          }
+
+          @if (msg.papel === 'assistente') {
+            <div class="rodape">
+              @if (msg.fontes && msg.fontes.length > 0) {
+                <button
+                  type="button"
+                  class="ref-btn"
+                  nz-tooltip
+                  [nzTooltipTitle]="'Ver ' + msg.fontes.length + ' referências'"
+                  nz-dropdown
+                  [nzDropdownMenu]="menuRefs"
+                  nzTrigger="click"
+                  aria-label="Ver referências"
+                >
+                  <nz-icon nzType="link" nzTheme="outline"></nz-icon>
+                  <span class="ref-count">{{ msg.fontes.length }}</span>
+                </button>
+                <nz-dropdown-menu #menuRefs="nzDropdownMenu">
+                  <ul nz-menu class="menu-fontes">
+                    @for (f of msg.fontes; track f.url) {
+                      <li nz-menu-item (click)="abrirFonte(f)">
+                        <span class="ref-tipo">{{ f.tipo || 'REF' }}</span>
+                        <span class="ref-titulo">{{ f.titulo }}</span>
+                      </li>
+                    }
+                  </ul>
+                </nz-dropdown-menu>
+              }
+              <button
+                type="button"
+                class="copy-btn"
+                nz-tooltip
+                [nzTooltipTitle]="copiado() === i ? 'Copiado' : 'Copiar'"
+                [class.copiado]="copiado() === i"
+                (click)="copiar(i, msg.texto)"
+              >
+                <nz-icon [nzType]="copiado() === i ? 'check' : 'copy'" nzTheme="outline"></nz-icon>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (carregando()) {
+      <div class="msg assistente">
+        <div class="bolha digitando" aria-label="consultando a câmara">
+          <div class="typing-loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (erro()) {
+    <div class="aviso">{{ erro() }}</div>
+  }
+
+  <div class="entrada">
+    <div class="input-box">
+      <textarea
+        nz-input
+        rows="2"
+        placeholder="e.g. quais os principais temas em votação na câmara em 2026?"
+        [(ngModel)]="pergunta"
+        (keydown.enter)="onEnter($event)"
+      ></textarea>
+      <div class="input-footer">
+        <span class="dica-entrada">Enter envia · Shift+Enter quebra linha</span>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          class="botao-enviar"
+          (click)="enviar()"
+          [disabled]="!pergunta.trim() || carregando()"
+          aria-label="Enviar"
+        >
+          <nz-icon nzType="send" nzTheme="outline"></nz-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
