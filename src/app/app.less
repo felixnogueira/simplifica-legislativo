@@ -1,0 +1,53 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.cabecalho {
+  flex: none;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color-base);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 980px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .logo-icone {
+    font-size: 26px;
+    color: var(--primary-color);
+  }
+
+  .marca-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .nome {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-color);
+  }
+
+  .subtitulo {
+    color: var(--text-color-secondary);
+    font-size: 0.82rem;
+  }
+}
+
+.conteudo {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background-color: var(--chat-bg);
+}
