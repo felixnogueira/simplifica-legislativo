@@ -1,4 +1,4 @@
-import { CheckOutline, CopyOutline, FileTextOutline, LinkOutline, ReadFill, ReadOutline, SendOutline } from '@ant-design/icons-angular/icons';
+import { CheckOutline, CopyOutline, FileTextOutline, LinkOutline, MessageOutline, ReadFill, ReadOutline, RedoOutline, SendOutline } from '@ant-design/icons-angular/icons';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideNzIcons([ReadOutline, ReadFill, FileTextOutline, CopyOutline, CheckOutline, SendOutline, LinkOutline]),
+    provideNzIcons([ReadOutline, ReadFill, FileTextOutline, CopyOutline, CheckOutline, SendOutline, LinkOutline, RedoOutline, MessageOutline]),
     provideNzI18n(pt_BR),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),

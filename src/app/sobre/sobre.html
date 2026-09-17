@@ -1,0 +1,146 @@
+<div class="sobre-container">
+  <nz-card class="card-info" nzTitle="Sobre o Projeto">
+    <div class="info-section">
+      <h3>Desenvolvedor</h3>
+      <p>Este projeto foi desenvolvido por <strong>Felix Nogueira</strong> (RU: 5164954) como atividade extensionista da UNINTER.</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Status do Backend</h3>
+      <nz-spin *ngIf="carregandoHealth()" nzSimple></nz-spin>
+      <nz-alert
+        *ngIf="erroHealth()"
+        nzType="error"
+        nzMessage="{{ erroHealth() }}"
+        nzShowIcon
+      ></nz-alert>
+      <nz-alert
+        *ngIf="healthStatus() && !carregandoHealth()"
+        nzType="success"
+        nzMessage="Backend operacional"
+        nzDescription="Status: {{ healthStatus()?.status }}"
+        nzShowIcon
+      ></nz-alert>
+    </div>
+  </nz-card>
+
+  <nz-card class="card-como-funciona" nzTitle="Como funciona?">
+    <p class="intro">
+      O <strong>Simplifica Legislativo</strong> é uma plataforma democrática que permite ao cidadão comum ler, compreender
+      e acompanhar os projetos de lei em tramitação na Câmara dos Deputados. O objetivo é democratizar o acesso à
+      informação legislativa, capacitando os cidadãos a tomarem decisões informadas e participarem ativamente da vida
+      política do país.
+    </p>
+
+    <div class="tech-section">
+      <h3>Arquitetura Técnica</h3>
+      <p>
+        A plataforma foi desenvolvida combinando
+        <strong>Python (FastAPI)</strong> no backend para processamento de dados e API REST, <strong>TypeScript (Angular)</strong>
+        no frontend para uma interface responsiva e intuitiva, e <strong>RAG (Retrieval Augmented Generation)</strong> para
+        inteligência artificial baseada em recuperação de informações contextuais.
+      </p>
+      <p>
+        Os dados legislativos são obtidos diretamente da <a href="https://dadosabertos.camara.leg.br/" target="_blank" rel="noopener">API de Dados Abertos da Câmara dos Deputados</a>,
+        garantindo a procedência e atualização das informações.
+      </p>
+    </div>
+
+    <div class="tech-section">
+      <h3>Propósito e Filosofia</h3>
+      <p>
+        O Simplifica Legislativo nasceu da necessidade de tornar o conteúdo legislativo compreensível a todos.
+        Muitos cidadãos encontram dificuldade em entender o teor e o impacto das proposições legislativas devido à
+        complexidade técnica dos termos utilizados, tendo dificuldade então de entender exatamente o que acontece
+        no contexto político, além de serem diariamente bombardeados por notícias falsas, vídeos curtos sem fontes e
+        conteúdo digital com objetivo de influenciar o cidadão a formar uma opinião específica.
+        Nossa plataforma utiliza RAG para traduzir essa linguagem para um formato mais compreensível, <strong>sem perder a fidelidade ao conteúdo original,</strong>  garantido que o usuário possa realizar pesquisas sobre projetos de lei e pensar por si mesmo na hora de formar uma opinião política.
+      </p>
+      <p>
+        <strong>Compromisso com a verdade:</strong> Todas as informações fornecidas são baseadas exclusivamente nos
+        documentos oficiais da Câmara. Utilizamos indexação de documentos vetorizados para extrair e contextualizar as
+        informações, sem adulteração ou acréscimo de dados externos. Cada resposta é acompanhada das fontes originais,
+        permitindo que o usuário verifique a procedência das informações.
+      </p>
+    </div>
+
+    <div class="tech-section">
+      <h3>Abordagem Técnica e Limitações</h3>
+      <p>
+        Em um cenário ideal, todo o processamento de linguagem natural seria realizado por uma LLM (Large Language Model)
+        executada localmente, garantindo total privacidade e isolamento de informações externas. No entanto, a infraestrutura
+        necessária para hospedar uma LLM local com performance adequada representa um custo significativo, inviável para
+        a atual fase desse projeto acadêmico.
+      </p>
+      <p>
+        Para contornar essa limitação mantendo a viabilidade do projeto, adotamos uma arquitetura híbrida que combina
+        ferramentas gratuitas e open-source com APIs comerciais de alta qualidade. A seguir, detalhamos as tecnologias
+        utilizadas:
+      </p>
+    </div>
+
+    <div class="tech-list">
+      <div class="tech-item">
+        <h4>LLM Local (Ollama)</h4>
+        <p>
+          Modelo de linguagem executado localmente na máquina do desenvolvedor para processamento inicial dos documentos
+          da Câmara. Esta etapa garante que o conteúdo original seja preservado antes de qualquer processamento externo.
+        </p>
+        <div class="img-placeholder">
+          <img src="/ollama.png" alt="Screenshot LLM Local" />
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <h4>Qdrant Vector Database</h4>
+        <p>
+          Banco de dados vetorial de alto desempenho para armazenamento e recuperação semântica dos documentos legislativos.
+          Os documentos são transformados em representações vetoriais (embeddings) que permitem busca por similaridade
+          contextual, não apenas por palavras-chave.
+        </p>
+        <div class="img-placeholder">
+          <img src="/qdrant.png" alt="Screenshot Qdrant" />
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <h4>FastAPI</h4>
+        <p>
+          Framework web moderno e de alta performance para construção da API REST do backend. Fornece validação automática
+          de dados, documentação interativa (Swagger/OpenAPI) e suporte nativo a operações assíncronas.
+        </p>
+        <div class="img-placeholder">
+          <img src="/swagger.png" alt="Screenshot Swagger" />
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <h4>Angular</h4>
+        <p>
+          Framework frontend mantido pelo Google para construção de Single Page Applications (SPAs). Oferece uma estrutura
+          robusta com componentes reutilizáveis, injeção de dependências e roteamento, garantindo uma experiência de
+          usuário fluida e responsiva.
+        </p>
+      </div>
+
+      <div class="tech-item">
+        <h4>NG-ZORRO</h4>
+        <p>
+          Biblioteca de componentes UI para Angular baseada no Ant Design. Fornece um conjunto completo de componentes
+          pré-estilizados e acessíveis, acelerando o desenvolvimento e garantindo consistência visual na interface.
+        </p>
+      </div>
+
+      <div class="tech-item">
+        <h4>Provedores de LLM</h4>
+        <p>
+          O sistema utiliza múltiplos provedores de modelos de linguagem para geração de respostas contextualizadas:
+          <strong>Ollama</strong> (execução local), <strong>Workers AI</strong> (Cloudflare), <strong>OpenCode Zen</strong>,
+          <strong>Gemini</strong> (Google) e <strong>Groq</strong>. O sistema tenta automaticamente o provedor disponível,
+          garantindo redundância e disponibilidade. Os modelos recebem os documentos relevantes recuperados do Qdrant e
+          geram explicações em linguagem acessível, mantendo-se estritamente fiéis ao conteúdo dos documentos originais.
+        </p>
+      </div>
+    </div>
+  </nz-card>
+</div>

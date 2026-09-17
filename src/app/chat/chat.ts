@@ -117,6 +117,12 @@ export class Chat {
     return renderMarkdown(texto);
   }
 
+  limparConversa(): void {
+    this.mensagens.set([]);
+    this.erro.set('');
+    this.pergunta = '';
+  }
+
   private rolarAbaixo(): void {
     setTimeout(() => {
       const el = this.historicoRef()?.nativeElement;

@@ -27,4 +27,8 @@ export class ApiService {
   chat(pergunta: string): Observable<ChatResponse> {
     return this.http.post<ChatResponse>(`${this.base}/api/chat`, { pergunta });
   }
+
+  health(): Observable<{ status: string; timestamp?: string }> {
+    return this.http.get<{ status: string; timestamp?: string }>(`${this.base}/health`);
+  }
 }

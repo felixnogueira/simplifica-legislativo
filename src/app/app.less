@@ -11,15 +11,34 @@
   height: 72px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 24px;
 
   .marca {
     display: flex;
     align-items: center;
     gap: 12px;
-    max-width: 980px;
-    width: 100%;
-    margin: 0 auto;
+  }
+
+  .navegacao {
+    display: flex;
+    gap: 24px;
+
+    .nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+
+      &.active {
+        color: var(--primary-color);
+      }
+    }
   }
 
   .logo-icone {
@@ -48,6 +67,6 @@
 .conteudo {
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
   background-color: var(--chat-bg);
 }

@@ -97,6 +97,19 @@
         (keydown.enter)="onEnter($event)"
       ></textarea>
       <div class="input-footer">
+        <button
+          nz-button
+          nzType="default"
+          class="botao-limpar"
+          nzShape="circle"
+          (click)="limparConversa()"
+          [disabled]="mensagens().length === 0 || carregando()"
+          nz-tooltip
+          nzTooltipTitle="Nova conversa"
+          aria-label="Nova conversa"
+        >
+         <nz-icon nzType="message" nzTheme="outline"/>
+        </button>
         <span class="dica-entrada">Enter envia · Shift+Enter quebra linha</span>
         <button
           nz-button
