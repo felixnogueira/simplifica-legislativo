@@ -58,14 +58,14 @@
     border-top-right-radius: 4px;
 
     .texto-usuario {
-      color: #003a3a;
+      color: var(--bubble2-text);
       font-weight: 500;
     }
   }
 
   &.erro {
     background: var(--error-1);
-    border: 1px solid #ffccc7;
+    border: 1px solid var(--error-border);
     color: var(--error-color);
   }
 
@@ -100,7 +100,7 @@
   }
 
   code {
-    background: rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     padding: 1px 5px;
     font-size: 0.85em;
@@ -131,7 +131,7 @@
 
     th,
     td {
-      border: 1px solid #dcdcdc;
+      border: 1px solid var(--border-color-base);
       padding: 6px 10px;
       text-align: left;
     }
@@ -162,7 +162,7 @@
   font-size: 0.75rem;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--primary-color);
   }
 
@@ -225,7 +225,7 @@
     height: 72px;
     margin: 0 auto 18px;
     border-radius: 20px;
-    background: #e6fffb;
+    background: rgba(19, 194, 194, 0.15);
     color: var(--primary-color);
     font-size: 34px;
     display: flex;
@@ -256,7 +256,7 @@
 
 .chip {
   border: 1px solid var(--border-color-base);
-  background: #fff;
+  background: var(--background-color);
   color: var(--text-color);
   border-radius: 999px;
   padding: 7px 16px;
@@ -293,16 +293,6 @@
   }
 }
 
-.aviso {
-  margin: 0 clamp(12px, 4vw, 40px) 8px;
-  border-radius: 8px;
-  border: 1px solid #ffccc7;
-  background: var(--error-1);
-  color: var(--error-color);
-  padding: 8px 14px;
-  font-size: 0.85rem;
-}
-
 // ---- entrada ----
 
 .entrada {
@@ -313,7 +303,7 @@
 .input-box {
   max-width: 860px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--background-color);
   border: 1px solid var(--border-color-base);
   border-radius: 8px;
   padding: 10px 14px 8px;

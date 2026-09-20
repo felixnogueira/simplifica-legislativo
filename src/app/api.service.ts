@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../environments/environment';
-import { ChatResponse, Documento, Filtros } from './models';
+import { ChatResponse, Documento, Filtros, HistoricoChat } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -24,11 +24,11 @@ export class ApiService {
     return this.http.get<{ count: number; results: Documento[] }>(`${this.base}/api/docs`, { params: p });
   }
 
-  chat(pergunta: string): Observable<ChatResponse> {
-    return this.http.post<ChatResponse>(`${this.base}/api/chat`, { pergunta });
+  chat(pergunta: string, historico: HistoricoChat[] = []): Observable<ChatResponse> {
+    return this.http.post<ChatResponse>(`${this.base}/api/chat`, { pergunta, historico });
   }
 
   health(): Observable<{ status: string; timestamp?: string }> {
-    return this.http.get<{ status: string; timestamp?: string }>(`${this.base}/health`);
+    return this.http.get<{ status: string; timestamp?: string }>(`${this.base}/api/health`);
   }
 }

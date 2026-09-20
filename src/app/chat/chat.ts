@@ -8,9 +8,10 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { ApiService } from '../api.service';
-import { ChatResponse, Fonte } from '../models';
+import { ChatResponse, Fonte, HistoricoChat } from '../models';
 
 interface Mensagem {
   papel: 'usuario' | 'assistente';
@@ -43,11 +44,11 @@ function renderMarkdown(texto: string): string {
 })
 export class Chat {
   private readonly api = inject(ApiService);
+  private readonly msg = inject(NzMessageService);
   private readonly historicoRef = viewChild<ElementRef<HTMLDivElement>>('historico');
 
   readonly mensagens = signal<Mensagem[]>([]);
   readonly carregando = signal(false);
-  readonly erro = signal('');
   readonly copiado = signal<number | null>(null);
 
   readonly sugestoes = [
@@ -84,13 +85,16 @@ export class Chat {
     if (!texto || this.carregando()) {
       return;
     }
+    const historico: HistoricoChat[] = this.mensagens()
+      .filter((m) => !m.erro && m.texto)
+      .slice(-8)
+      .map((m) => ({ papel: m.papel, conteudo: m.texto }));
     this.mensagens.update((m) => [...m, { papel: 'usuario', texto }]);
     this.pergunta = '';
     this.carregando.set(true);
-    this.erro.set('');
     this.rolarAbaixo();
     this.api
-      .chat(texto)
+      .chat(texto, historico)
       .pipe(finalize(() => this.resultadoChegou()))
       .subscribe({
         next: (r: ChatResponse) =>
@@ -100,7 +104,7 @@ export class Chat {
           ]),
         error: (e: { error?: { detalhe?: string } }) => {
           const detalhe = e?.error?.detalhe;
-          this.erro.set(detalhe || 'erro ao consultar o assistente');
+          this.msg.error(detalhe || 'erro ao consultar o assistente');
           this.mensagens.update((m) => [
             ...m,
             {
@@ -119,7 +123,6 @@ export class Chat {
 
   limparConversa(): void {
     this.mensagens.set([]);
-    this.erro.set('');
     this.pergunta = '';
   }
 

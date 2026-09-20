@@ -34,3 +34,8 @@ export interface ChatResponse {
   fontes: Fonte[];
   aviso?: string;
 }
+
+export interface HistoricoChat {
+  papel: 'usuario' | 'assistente';
+  conteudo: string;
+}
