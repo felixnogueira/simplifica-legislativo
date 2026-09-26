@@ -10,47 +10,197 @@ html {
 
 :root {
   color-scheme: dark;
-  --primary-color: #1677ff;
-  /* --primary-color: #13c2c2; */
-  --text-color: #e6e6e6;
-  --text-color-secondary: #9ba1a6;
-  --border-color-base: #434343;
-  --background-color: #1f1f1f;
-  --background-color-light: #262626;
-  --error-color: #ff7875;
-  --error-1: rgba(207, 19, 34, 0.16);
-  --error-border: #a61d24;
-  --chat-bg: #141414;
-  --bubble-bg: #262626;
-  --bubble2-bg: #20395c;
-  --bubble2-text: #dbe9ff;
-  --radius: 10px;
+
+  // superfícies (escuro cool, quase preto)
+  --bg: #0a0b0e;
+  --bg-elev: #101216;
+  --surface: #15181f;
+  --surface-2: #1b1f28;
+  --border: #232733;
+  --border-soft: rgba(255, 255, 255, 0.06);
+
+  // texto
+  --text: #e7eaf3;
+  --text-2: #9aa2b4;
+  --text-3: #626a7d;
+
+  // acento laranja (unificado; gradiente para brilho)
+  --accent: #fb923c;
+  --accent-strong: #f97316;
+  --accent-ink: #1c1206;
+  --accent-glow: rgba(249, 115, 22, 0.24);
+  --accent-grad: linear-gradient(135deg, #ea580c, #fb923c 55%, #fbbf24);
+
+  // erro
+  --error: #ff6b70;
+  --error-bg: rgba(248, 81, 73, 0.1);
+  --error-border: rgba(248, 81, 73, 0.38);
+
+  // formas e sombras
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --font-mono:
+    ui-monospace, 'SF Mono', SFMono-Regular, 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  // aliases para não quebrar os componentes existentes
+  --primary-color: var(--accent);
+  --background-color: var(--bg-elev);
+  --background-color-light: var(--surface-2);
+  --border-color-base: var(--border);
+  --text-color: var(--text);
+  --text-color-secondary: var(--text-2);
+  --chat-bg: var(--bg);
+  --bubble-bg: var(--surface);
+  --bubble2-bg: rgba(249, 115, 22, 0.16);
+  --bubble2-text: #ffedd5;
+  --error-color: var(--error);
+  --error-1: var(--error-bg);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   color: var(--text-color);
-  background-color: var(--chat-bg);
+  background:
+    radial-gradient(1200px 520px at 50% -12%, rgba(249, 115, 22, 0.09), transparent 62%), var(--bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: var(--primary-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
 }
 
-// acento ciano nos componentes do ng-zorro sem recompilar o tema
+// foco visível acessível em todo o app
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// scrollbar fina (webkit)
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #2a2e38;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+
+  &:hover {
+    background-color: #3a4050;
+    background-clip: content-box;
+  }
+}
+
+// acento por gradiente no botão primário do ng-zorro
 .ant-btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  border: none;
+  color: var(--accent-ink);
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.22);
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, #c2410c, #f59e0b);
+    border: none;
+    color: var(--accent-ink);
+    box-shadow: 0 8px 22px rgba(249, 115, 22, 0.32);
+  }
 
   &:disabled {
-    background-color: var(--border-color-base);
-    border-color: var(--border-color-base);
+    background: #2a2e38;
+    border: none;
+    color: #7a8194;
+    box-shadow: none;
+  }
+}
+
+// botão default: superfície com borda suave
+.ant-btn-default {
+  background: var(--surface);
+  border-color: var(--border-soft);
+  color: var(--text-2);
+
+  &:hover {
+    color: var(--accent);
+    border-color: rgba(249, 115, 22, 0.6);
+    background: var(--surface-2);
   }
 }
 
 .ant-tag {
-  border-radius: 4px;
+  border-radius: 6px;
+}
+
+// cards do ng-zorro (usados na página "Sobre")
+.ant-card {
+  background: var(--surface);
+  border-color: var(--border-soft);
+
+  .ant-card-head {
+    border-bottom-color: var(--border-soft);
+
+    &-title {
+      color: var(--text);
+      font-weight: 700;
+    }
+  }
+
+  .ant-card-body {
+    color: var(--text-2);
+  }
+}
+
+.ant-alert {
+  border-radius: 10px;
+}
+
+.ant-alert-success {
+  background: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.ant-alert-error {
+  background: var(--error-bg);
+  border-color: var(--error-border);
+}
+
+.ant-message {
+  .ant-message-notice-content {
+    background: var(--surface-2);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow);
+    color: var(--text);
+  }
+
+  .ant-message-error .ant-message-notice-content {
+    border-color: var(--error-border);
+  }
 }
 
 // itens do menu de fontes (renderizado em overlay fora do componente)
@@ -58,17 +208,17 @@ a {
   flex: none;
   display: inline-flex;
   align-items: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #13c2c2;
-  background: rgba(19, 194, 194, 0.15);
-  border: 1px solid rgba(19, 194, 194, 0.4);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.4);
   border-radius: 999px;
-  padding: 0 8px;
+  padding: 0 9px;
   height: 20px;
   margin-right: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
 }
 
 .ref-titulo {
@@ -90,8 +240,10 @@ li[nz-menu-item] {
   max-width: 380px;
   max-height: 320px;
   overflow-y: auto;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 
   li[nz-menu-item] {
     display: flex;
@@ -99,6 +251,12 @@ li[nz-menu-item] {
     gap: 8px;
     padding-block: 6px;
     white-space: nowrap;
+    color: var(--text-2);
+
+    &:hover {
+      color: var(--text) !important;
+      background: rgba(249, 115, 22, 0.08);
+    }
 
     .ref-tipo {
       flex: none;
@@ -112,5 +270,15 @@ li[nz-menu-item] {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+}
+
+// respeito a preferência de animação reduzida
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

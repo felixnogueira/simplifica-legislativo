@@ -1,11 +1,13 @@
 .sobre-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 28px 24px 40px;
 
   .card-info,
   .card-como-funciona {
     margin-bottom: 24px;
+    border-radius: 16px;
+    overflow: hidden;
   }
 
   .info-section {
@@ -16,63 +18,97 @@
     }
 
     h3 {
-      font-size: 18px;
+      font-size: 0.95rem;
       font-weight: 600;
+      letter-spacing: 0.02em;
       margin-bottom: 12px;
-      color: var(--primary-color);
+      color: var(--accent);
+      text-transform: uppercase;
     }
 
     p {
       margin-bottom: 8px;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: var(--text-2);
+    }
+
+    strong {
+      color: var(--text);
     }
   }
 
   .intro {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 24px;
-    color: var(--text-color);
+    color: var(--text);
+
+    strong {
+      color: var(--accent);
+    }
   }
 
   .tech-section {
     margin-bottom: 24px;
 
     h3 {
-      font-size: 18px;
+      font-size: 0.95rem;
       font-weight: 600;
+      letter-spacing: 0.02em;
       margin-bottom: 12px;
-      color: var(--primary-color);
+      color: var(--accent);
+      text-transform: uppercase;
     }
 
     p {
       margin-bottom: 12px;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: var(--text-2);
+
+      strong {
+        color: var(--text);
+      }
     }
   }
 
   .tech-list {
     display: grid;
-    gap: 24px;
+    gap: 16px;
     margin-top: 24px;
 
     .tech-item {
-      background: var(--background-color-light);
-      padding: 20px;
-      border-radius: 8px;
-      border-left: 4px solid var(--primary-color);
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      padding: 20px 22px 20px 26px;
+      border-radius: 14px;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 3px;
+        background: var(--accent-grad);
+      }
 
       h4 {
-        font-size: 16px;
+        font-size: 0.98rem;
         font-weight: 600;
         margin-bottom: 8px;
-        color: var(--text-color);
+        color: var(--text);
       }
 
       p {
         margin-bottom: 12px;
-        line-height: 1.6;
-        color: var(--text-color-secondary);
+        line-height: 1.7;
+        color: var(--text-2);
+
+        strong {
+          color: var(--text);
+        }
       }
 
       .img-placeholder {
@@ -83,8 +119,9 @@
         img {
           max-width: 80%;
           height: auto;
-          border-radius: 4px;
-          background: var(--background-color-light);
+          border-radius: 10px;
+          background: var(--bg-elev);
+          border: 1px solid var(--border-soft);
           min-height: 200px;
           display: block;
         }
